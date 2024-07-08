@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+     <meta charset="UTF-8">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <title>To-Do List</title>
+     <style>
+          *{
+               box-sizing:border-box;
+               background-color: #d3a0a0;
+          }
+          .main-screen{
+               width: 100%;
+          }
+          .min-screen{
+               margin-top: 50px;
+               margin-left: 20%;
+               margin-right: 20%;
+               padding: 30px;
+               text-align: center;
+               background-color: #b07b7b;
+               border-radius: 30px;
+          }
+          h1{
+               background-color: #d3a0a0;
+               border-radius: 30px;
+               text-align: center;
+          }
+          .list-screen{
+               text-align: center;
+               background-color: #b07b7b;
+               border-radius: 30px;
+               margin-top: 10px;
+               margin-left: 20%;
+               margin-right: 20%;
+               padding: 30px;
+          }
+          .list-screen input, .list-screen button{
+               padding: 10px;
+               border-radius: 10px;
+               border-color: #b07b7b;
+          }
+          ul li{
+               list-style: none;
+               user-select: none;
+               cursor: pointer;
+               padding: 12px;
+               margin-left: 30%;
+               position: relative;
+               font-size: 20px;
+          }
+          ul li::before{
+               content: ' ';
+               position: absolute;
+               height: 28px;
+               width: 28px;
+               border-radius: 50%;
+               background-image: url(uncompleted.png);
+               background-size: cover;
+               background-position: center;
+               top: 50%;
+               left: -5%;
+               transform: translateY(-45%);
+          }
+          
+          ul li.completed{
+               color: #312525;
+               text-decoration: line-through;
+          }
+          ul li.completed::before{
+               background-image: url(completed.png);
+          }
+          ul li span{
+               position: absolute;
+               border-radius: 30%;
+               color: #555;
+               height: 40px;
+               width: 50px;
+               right:50%;
+               top: 5px;
+               font-size: 17px;
+               line-height: 40px;
+               text-align: center;
+          }
+          ul li span:hover{
+               background-color: #ddbaba;
+          }
+     </style>
+</head>
+<body>
+     <div class="main-screen">
+          <div class="min-screen">
+               <h1>To-Do List</h1>
+          </div>
+          <br> <br>
+          <div class="list-screen">
+               <input type="text" id="input-text" placeholder="Add Your Task">
+               <button onclick="addTask()">add</button>
+          </div>
+          <div id="task-box">
+               <ul id="task-list">
+                    <!--task will be displayed-->
+               </ul>
+          </div>
+     </div>
+     <script>
+          const inputBox = document.getElementById("input-text");
+          const taskList = document.getElementById("task-list");
+
+          function addTask() {
+               if(inputBox.value === ''){
+                    alert("You must add at least one task");
+               }
+               else{
+                    let listTask = document.createElement("li"); //creating html element by using tag name li
+                    listTask.innerHTML = inputBox.value;    //text will to added to listTask
+                    taskList.appendChild(listTask);         //displaying the task under tasklist
+
+                    let span = document.createElement("span");
+                    span.innerHTML = "clear";
+                    listTask.appendChild(span);
+               }
+               inputBox.value = "";
+               saveData();
+          }
+          taskList.addEventListener("click", function(e) {
+          if (e.target.tagName === "LI") {
+               e.target.classList.toggle("completed");
+               saveData();
+          } else if (e.target.tagName === "SPAN") {
+               e.target.parentElement.classList.remove("completed");
+               saveData();
+          }
+          });
+          function saveData(){
+               localStorage.setItem("taskList", taskList.innerHTML);
+          }
+          function showData(){
+               if (localStorage.getItem("taskList")) {
+               taskList.innerHTML = localStorage.getItem("taskList");
+               }
+          }
+          showData();
+     </script>
+</body>
+</html>
