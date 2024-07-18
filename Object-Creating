@@ -1,0 +1,96 @@
+//object literal
+
+const person = {
+     name: "varshitha",
+     qualification: "MCA",
+     isMarried: false,
+     age: 22
+};
+console.log(person);
+
+//new keyword
+
+const person2 = new Object();
+person2.name = "varshitha";
+console.log(person2.name);
+
+//constructor
+function person3(name, age){
+     this.name = name;
+     this.age = age;
+}
+let emp = new person3("varshitha", 24)
+console.log(emp)
+
+//adding
+person.job = "Engineer";
+console.log(person)
+
+//deleting
+delete person.isMarried;
+console.log(person)
+
+//class
+
+class Student{
+     constructor(name, id){
+          this.name = name;
+          this.id = id;
+     }
+}
+const std1 = new Student("varshitha", 12);
+const std2 = new Student("varsha", 13);
+console.log(std1)
+
+//accessing
+console.log(std2.name);
+
+const Student2 = {
+     name: "vandu"
+}
+//adding properties for existing object
+// Directly add new properties
+Student2.class = 5;
+console.log(Student2)
+
+const addInfo = {school: "svs"}
+Object.assign(Student2, addInfo)
+console.log(Student2)
+const addPlace = {city: "crp", country: "India"}
+const update = Object.assign(Student2, addPlace)
+console.log(update)
+
+//modifing
+person.age = 23;
+console.log(person)
+person["age"] = 24;
+console.log(person)
+emp["age"] = 26;
+console.log(emp)
+
+//function in object
+
+const employee = {
+     empName: "kushi",
+     empAge: 30,
+     isMArried: true,
+     greet: function(){
+          console.log("Hello " + this.empName);
+     }
+}
+employee.greet();
+
+Object.freeze(employee)  //freezing from modification
+
+delete employee.name;
+console.log(employee
+     )
+employee.job = "New Reporter"
+console.log(employee)
+
+
+//objects methods
+
+console.log(Object.keys(employee));
+console.log(Object.values(employee))
+console.log(Object.entries(employee));
